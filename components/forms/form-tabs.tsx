@@ -10,11 +10,11 @@ interface FormTabsProps {
 
 export function FormTabs({ activeTab, onTabChange }: FormTabsProps) {
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-4 w-64 pr-8">
       <button
-        onClick={() => onTabChange("details")}
-        className={cn(
-          "flex items-center space-x-2 px-4 py-2 text-left transition-colors",
+      onClick={() => onTabChange("details")}
+      className={cn(
+        "flex items-center space-x-2 px-4 py-2 text-left transition-colors w-full",
           activeTab === "details"
             ? "text-black font-medium"
             : "text-gray-500 hover:text-gray-900"
@@ -26,7 +26,7 @@ export function FormTabs({ activeTab, onTabChange }: FormTabsProps) {
       <button
         onClick={() => onTabChange("location")}
         className={cn(
-          "flex items-center space-x-2 px-4 py-2 text-left transition-colors",
+            "flex items-center space-x-2 px-4 py-2 text-left transition-colors w-full",
           activeTab === "location"
             ? "text-black font-medium"
             : "text-gray-500 hover:text-gray-900"

@@ -26,26 +26,24 @@ export function ActivityForm() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-8">Create new Activity</h1>
+      <h1 className="text-2xl font-bold mb-8">Create new Activity</h1>
       
-      <div className="flex">
-        <div className="w-48 flex-shrink-0 pr-6 border-r">
-          <FormTabs activeTab={activeTab} onTabChange={setActiveTab} />
-        </div>
-
-        <div className="flex-1 pl-8">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-              <FormContent
-                activeTab={activeTab}
-                control={form.control}
-                onNext={() => setActiveTab("location")}
-                onSubmit={form.handleSubmit(onSubmit)}
-              />
-            </form>
-          </Form>
-        </div>
-      </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex">
+          <div className="w-56 border-r border-gray-200 pr-6">
+            <FormTabs activeTab={activeTab} onTabChange={setActiveTab} />
+          </div>
+          <div className="flex-1 pl-8">
+            <FormContent
+              activeTab={activeTab}
+              control={form.control}
+              onNext={() => setActiveTab("location")}
+              onSubmit={form.handleSubmit(onSubmit)}
+            />
+          </div>
+        </form>
+      </Form>
     </div>
+
   );
 }
