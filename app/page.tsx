@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
-        <div className="max-2 mx-80 py-8">
+        <div className="ml-[18%] mr-[35%] py-8">
         <ActivityForm />
       </div>
     </main>

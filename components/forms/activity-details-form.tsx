@@ -8,6 +8,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ActivityFormValues } from "@/lib/types";
+import { useState } from "react";
 
 interface ActivityDetailsFormProps {
   control: Control<ActivityFormValues>;
@@ -15,6 +16,7 @@ interface ActivityDetailsFormProps {
 }
 
 export function ActivityDetailsForm({ control, onNext }: ActivityDetailsFormProps) {
+  const [showOtherInput, setShowOtherInput] = useState(false);
   return (
     <div className="space-y-6">
       <div className="mb-8">
@@ -38,38 +40,61 @@ export function ActivityDetailsForm({ control, onNext }: ActivityDetailsFormProp
         )}
       />
 
-      <FormField
+        <FormField
         control={control}
         name="category"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Select the best category to describe your activity</FormLabel>
-            <FormControl>
-              <RadioGroup
-                onValueChange={field.onChange}
-                defaultValue={field.value}
-                className="grid grid-cols-1 gap-4"
-              >
-                {[
-                  "Adventure & Games",
-                  "Creative Expression",
-                  "Food & Drink",
-                  "Learning & Development",
-                  "Sports and Fitness",
-                  "Volunteering",
-                  "Other",
-                ].map((category) => (
-                  <div key={category} className="flex items-center space-x-2">
-                    <RadioGroupItem value={category} id={category} />
-                    <Label htmlFor={category}>{category}</Label>
-                  </div>
-                ))}
-              </RadioGroup>
-            </FormControl>
-            <FormMessage />
+          <FormLabel>Select the best category to describe your activity</FormLabel>
+          <FormControl>
+            <div className="space-y-4">
+            <RadioGroup
+              onValueChange={(value) => {
+              field.onChange(value);
+              setShowOtherInput(value === "Other");
+              }}
+              defaultValue={field.value}
+              className="grid grid-cols-1 gap-4"
+            >
+              {[
+              "Adventure & Games",
+              "Creative Expression",
+              "Food & Drink",
+              "Learning & Development",
+              "Sports and Fitness",
+              "Volunteering",
+              "Other",
+              ].map((category) => (
+              <div key={category} className="flex items-center space-x-2">
+                <RadioGroupItem value={category} id={category} />
+                <Label htmlFor={category}>{category}</Label>
+              </div>
+              ))}
+            </RadioGroup>
+            {showOtherInput && (
+              <FormField
+              control={control}
+              name="otherCategory"
+              render={({ field }) => (
+                <FormItem>
+                <FormControl>
+                  <Input
+                  placeholder="Please specify your category"
+                  className="mt-2"
+                  {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+                </FormItem>
+              )}
+              />
+            )}
+            </div>
+          </FormControl>
+          <FormMessage />
           </FormItem>
         )}
-      />
+        />
 
       <FormField
         control={control}
