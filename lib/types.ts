@@ -15,8 +15,14 @@ export const activityFormSchema = z.object({
   description: z.string().min(1, "Activity description is required"),
   activityType: z.enum(["Indoor", "Outdoor", "Virtual"]),
   locationType: z.enum(["Provider Location", "User Location"]),
-  minMembers: z.string().min(1, "Minimum members is required"),
-  maxMembers: z.string().min(1, "Maximum members is required"),
+  minMembers: z.string().optional(),
+  maxMembers: z.string().optional(),
+  // Location fields
+  addressLine1: z.string().min(1, "Address line 1 is required"),
+  addressLine2: z.string().optional(),
+  city: z.string().min(1, "City is required"),
+  state: z.string().min(1, "State is required"),
+  zipCode: z.string().min(1, "Zip code is required"),
 });
 
 export type ActivityFormValues = z.infer<typeof activityFormSchema>;

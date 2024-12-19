@@ -7,6 +7,7 @@ import { Form } from "@/components/ui/form";
 import { ActivityFormValues, activityFormSchema } from "@/lib/types";
 import { FormTabs } from "@/components/forms/form-tabs";
 import { FormContent } from "@/components/forms/form-content";
+import { toast } from "sonner";
 
 export function ActivityForm() {
   const [activeTab, setActiveTab] = useState("details");
@@ -17,8 +18,38 @@ export function ActivityForm() {
       category: "Adventure & Games",
       activityType: "Indoor",
       locationType: "Provider Location",
+      minMembers: "",
+      maxMembers: "",
+      addressLine1: "",
+      addressLine2: "",
+      city: "",
+      state: "",
+      zipCode: "",
     },
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
+    shouldFocusError: false,
+    criteriaMode: "firstError"
   });
+
+  const handleTabChange = async (newTab: string) => {
+    const result = await form.trigger([
+      'activityName',
+      'category',
+      'description',
+      'activityType',
+      'locationType',
+      'minMembers',
+      'maxMembers'
+    ], { shouldFocus: true });
+
+    if (!result) {
+      toast.error("Please fill in all required fields before proceeding");
+      return;
+    }
+
+    setActiveTab(newTab);
+  };
 
   function onSubmit(values: ActivityFormValues) {
     console.log(values);
@@ -37,13 +68,12 @@ export function ActivityForm() {
             <FormContent
               activeTab={activeTab}
               control={form.control}
-              onNext={() => setActiveTab("location")}
+              onNext={() => handleTabChange("location")}
               onSubmit={form.handleSubmit(onSubmit)}
             />
           </div>
         </form>
       </Form>
     </div>
-
   );
 }

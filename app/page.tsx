@@ -1,6 +1,7 @@
 "use client";
 
 import { ActivityForm } from "@/components/activity-form";
+import Footer from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 
 export default function Home() {
@@ -9,7 +10,9 @@ export default function Home() {
       <Navbar />
         <div className="ml-[18%] mr-[35%] py-8">
         <ActivityForm />
+      
       </div>
+      <Footer/>
     </main>
   );
 }
