@@ -12,6 +12,10 @@ import { toast } from "sonner";
 export function ActivityForm() {
   const [activeTab, setActiveTab] = useState("details");
   
+  const handleBack = () => {
+    setActiveTab("details");
+  };
+
   const form = useForm<ActivityFormValues>({
     resolver: zodResolver(activityFormSchema),
     defaultValues: {
@@ -70,7 +74,9 @@ export function ActivityForm() {
               control={form.control}
               onNext={() => handleTabChange("location")}
               onSubmit={form.handleSubmit(onSubmit)}
+              onBack={handleBack}
             />
+
           </div>
         </form>
       </Form>

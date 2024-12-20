@@ -10,24 +10,17 @@ interface FormContentProps {
   control: Control<ActivityFormValues>;
   onNext: () => void;
   onSubmit: () => void;
+  onBack: () => void;
 }
 
-export function FormContent({ activeTab, control, onNext, onSubmit }: FormContentProps) {
-  return (
-    <div className="space-y-8">
-      {activeTab === "details" && (
-        <ActivityDetailsForm
-          control={control}
-          onNext={onNext}
-        />
-      )}
+export function FormContent({ activeTab, control, onNext, onSubmit, onBack }: FormContentProps) {
+  if (activeTab === "details") {
+    return <ActivityDetailsForm control={control} onNext={onNext} />;
+  }
 
-      {activeTab === "location" && (
-        <LocationDetailsForm
-          control={control}
-          onSubmit={onSubmit}
-        />
-      )}
-    </div>
-  );
+  if (activeTab === "location") {
+    return <LocationDetailsForm control={control} onSubmit={onSubmit} onBack={onBack} />;
+  }
+
+  return null;
 }
