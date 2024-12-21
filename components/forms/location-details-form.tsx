@@ -237,6 +237,7 @@ export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetai
                   placeholder="Contact Name" 
                   {...field} 
                   className="h-10"
+                  value={field.value || ''}
                 />
                 </FormControl>
             </FormItem>

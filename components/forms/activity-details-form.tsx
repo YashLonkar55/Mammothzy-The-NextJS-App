@@ -61,10 +61,11 @@ export function ActivityDetailsForm({ control, onNext }: ActivityDetailsFormProp
           <FormItem>
             <FormLabel className="text-gray-900">Activity Name<RequiredIndicator /></FormLabel>
             <FormControl>
-              <Input
+                <Input
                 placeholder="Eg: Cooking class in Palo Alto"
                 {...field}
-              />
+                value={field.value || ''} // Ensure value is always defined
+                />
             </FormControl>
           </FormItem>
 
