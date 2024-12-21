@@ -9,7 +9,7 @@ interface FormContentProps {
   activeTab: string;
   control: Control<ActivityFormValues>;
   onNext: () => void;
-  onSubmit: () => void;
+  onSubmit: () => Promise<void>;  // Handles async form submission
   onBack: () => void;
 }
 

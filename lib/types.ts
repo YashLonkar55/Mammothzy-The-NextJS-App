@@ -23,6 +23,9 @@ export const activityFormSchema = z.object({
   city: z.string().min(1, "City is required"),
   state: z.string().min(1, "State is required"),
   zipCode: z.string().min(1, "Zip code is required"),
+  // Contact fields
+  contactPhone: z.string().min(1, "Contact phone is required"),
+  contactName: z.string().min(1, "Contact name is required"),
 });
 
 export type ActivityFormValues = z.infer<typeof activityFormSchema>;

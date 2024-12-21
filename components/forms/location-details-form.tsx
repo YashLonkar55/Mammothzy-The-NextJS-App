@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ActivityFormValues } from "@/lib/types";
 import ReactCountryFlag from "react-country-flag";
+import { useRouter } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -27,12 +28,13 @@ const RequiredIndicator = () => <span className="text-red-500 ml-1">*</span>;
 
 interface LocationDetailsFormProps {
   control: Control<ActivityFormValues>;
-  onSubmit: () => void;
-  onBack: () => void;  // Add this new prop
+  onSubmit: () => Promise<void>;
+  onBack: () => void;
 }
 
 export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetailsFormProps) {
   const states = [
+
     "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
     "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
     "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
@@ -40,9 +42,20 @@ export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetai
     "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
   ];
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      await onSubmit();
+    } catch (error) {
+      console.error('Form submission failed:', error);
+    }
+  };
+
   return (
-    <form onSubmit={onSubmit} className="space-y-6">
-      <div>
+    <div>
+      <form onSubmit={handleSubmit} className="space-y-6">
+
+        <div>
         <h2 className="text-xl font-semibold mb-2">Location Details</h2>
         <p className="text-sm text-muted-foreground">Please specify the address for where the activity takes place</p>
       </div>
@@ -239,8 +252,8 @@ export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetai
           Submit
         </Button>
         </div>
-      </form>
+        </form>
+      </div>
+      );
 
-
-  );
 }

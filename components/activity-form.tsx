@@ -8,9 +8,11 @@ import { ActivityFormValues, activityFormSchema } from "@/lib/types";
 import { FormTabs } from "@/components/forms/form-tabs";
 import { FormContent } from "@/components/forms/form-content";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function ActivityForm() {
   const [activeTab, setActiveTab] = useState("details");
+  const router = useRouter();
   
   const handleBack = () => {
     setActiveTab("details");
@@ -55,8 +57,13 @@ export function ActivityForm() {
     setActiveTab(newTab);
   };
 
-  function onSubmit(values: ActivityFormValues) {
-    console.log(values);
+  async function onSubmit(values: ActivityFormValues) {
+    try {
+      console.log(values);
+      await router.push('/form-submitted');
+    } catch (error) {
+      console.error('Form submission failed:', error);
+    }
   }
 
   return (
@@ -64,7 +71,7 @@ export function ActivityForm() {
       <h1 className="text-2xl font-bold mb-8">Create new Activity</h1>
       
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex">
+        <div className="flex">
           <div className="w-56 border-r border-gray-200 pr-6">
             <FormTabs activeTab={activeTab} onTabChange={setActiveTab} />
           </div>
@@ -76,9 +83,8 @@ export function ActivityForm() {
               onSubmit={form.handleSubmit(onSubmit)}
               onBack={handleBack}
             />
-
           </div>
-        </form>
+        </div>
       </Form>
     </div>
   );
