@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { BsPerson } from "react-icons/bs";
 
 export function Navbar() {
   return (
@@ -16,7 +17,8 @@ export function Navbar() {
           />
           {/* <span className="text-xl font-semibold">mammothzy</span> */}
         </div>
-        <button className="flex items-center space-x-2 text-sm font-medium">
+        <button className="flex items-center space-x-2 text-lg font-medium ">
+          <BsPerson className="w-[26px] h-[26px] mr-2"/>
           <span>Profile</span>
         </button>
       </div>

@@ -3,6 +3,7 @@
 import { Control } from "react-hook-form";
 import { FormField, FormItem, FormLabel, FormControl } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ArrowRight } from 'lucide-react';
 
 const RequiredIndicator = () => <span className="text-red-500 ml-1">*</span>;
 
@@ -65,66 +66,66 @@ export function ActivityDetailsForm({ control, onNext }: ActivityDetailsFormProp
                 {...field}
               />
             </FormControl>
-            </FormItem>
+          </FormItem>
 
         )}
       />
 
-        <FormField
+      <FormField
         control={control}
         name="category"
         render={({ field }) => (
           <FormItem>
             <FormLabel className="text-gray-900">Select the best category to describe your activity<RequiredIndicator /></FormLabel>
-          <FormControl>
-            <div className="space-y-4">
-            <RadioGroup
-              onValueChange={(value) => {
-              field.onChange(value);
-              setShowOtherInput(value === "Other");
-              }}
-              defaultValue={field.value}
-              className="grid grid-cols-1 gap-4"
-            >
-              {[
-              "Adventure & Games",
-              "Creative Expression",
-              "Food & Drink",
-              "Learning & Development",
-              "Sports and Fitness",
-              "Volunteering",
-              "Other",
-              ].map((category) => (
-              <div key={category} className="flex items-center space-x-2">
-                <RadioGroupItem value={category} id={category} />
-                <Label htmlFor={category}>{category}</Label>
-              </div>
-              ))}
-            </RadioGroup>
-            {showOtherInput && (
-              <FormField
-              control={control}
-              name="otherCategory"
-              render={({ field }) => (
-                <FormItem>
-                <FormControl>
-                  <Input
-                  placeholder="Please specify your category"
-                  className="mt-2"
-                  {...field}
-                  />
-                </FormControl>
-                </FormItem>
+            <FormControl>
+              <div className="space-y-4">
+                <RadioGroup
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    setShowOtherInput(value === "Other");
+                  }}
+                  defaultValue={field.value}
+                  className="grid grid-cols-1 gap-4"
+                >
+                  {[
+                    "Adventure & Games",
+                    "Creative Expression",
+                    "Food & Drink",
+                    "Learning & Development",
+                    "Sports and Fitness",
+                    "Volunteering",
+                    "Other",
+                  ].map((category) => (
+                    <div key={category} className="flex items-center space-x-2">
+                      <RadioGroupItem value={category} id={category} />
+                      <Label htmlFor={category}>{category}</Label>
+                    </div>
+                  ))}
+                </RadioGroup>
+                {showOtherInput && (
+                  <FormField
+                    control={control}
+                    name="otherCategory"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            placeholder="Please specify your category"
+                            className="mt-2"
+                            {...field}
+                          />
+                        </FormControl>
+                      </FormItem>
 
-              )}
-              />
-            )}
-            </div>
+                    )}
+                  />
+                )}
+              </div>
             </FormControl>
-            </FormItem>
+          </FormItem>
 
         )}
-        />
+      />
 
       <FormField
         control={control}
@@ -139,112 +140,125 @@ export function ActivityDetailsForm({ control, onNext }: ActivityDetailsFormProp
                 {...field}
               />
             </FormControl>
-            </FormItem>
+          </FormItem>
 
         )}
       />
 
-        <FormField
+      <FormField
         control={control}
         name="activityType"
         render={({ field }) => (
           <FormItem>
             <FormLabel className="text-gray-900">Please select the activity type<RequiredIndicator /></FormLabel>
-          <FormControl>
-            <RadioGroup
-            onValueChange={field.onChange}
-            defaultValue={field.value}
-            className="grid grid-cols-1 gap-4"
-            >
-            {["Indoor", "Outdoor", "Virtual"].map((type) => (
-              <div key={type} className="flex items-center space-x-2">
-              <RadioGroupItem value={type} id={type} />
-              <Label htmlFor={type}>{type}</Label>
-              </div>
-            ))}
-            </RadioGroup>
+            <FormControl>
+              <RadioGroup
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                className="grid grid-cols-1 gap-4"
+              >
+                {["Indoor", "Outdoor", "Virtual"].map((type) => (
+                  <div key={type} className="flex items-center space-x-2">
+                    <RadioGroupItem value={type} id={type} />
+                    <Label htmlFor={type}>{type}</Label>
+                  </div>
+                ))}
+              </RadioGroup>
             </FormControl>
-            </FormItem>
+          </FormItem>
 
         )}
-        />
+      />
 
-        <FormField
+      <FormField
         control={control}
         name="locationType"
         render={({ field }) => (
           <FormItem>
             <FormLabel className="text-gray-900">Please select the type of location<RequiredIndicator /></FormLabel>
-          <FormControl>
-            <RadioGroup
-            onValueChange={field.onChange}
-            defaultValue={field.value}
-            className="grid grid-cols-1 gap-4"
-            >
-            {["Provider Location", "User Location"].map((type) => (
-              <div key={type} className="flex items-center space-x-2">
-              <RadioGroupItem value={type} id={type} />
-              <Label htmlFor={type}>{type}</Label>
-              </div>
-            ))}
-            </RadioGroup>
+            <FormControl>
+              <RadioGroup
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                className="grid grid-cols-1 gap-4"
+              >
+                {["Provider Location", "User Location"].map((type) => (
+                  <div key={type} className="flex items-center space-x-2">
+                    <RadioGroupItem value={type} id={type} />
+                    <Label htmlFor={type}>{type}</Label>
+                  </div>
+                ))}
+              </RadioGroup>
             </FormControl>
-            </FormItem>
+          </FormItem>
 
         )}
-        />
+      />
 
-        <div>
+      <div>
         <h3 className="text-sm font-medium mb-4">
           How many members can take part in the activity? (Optional)
         </h3>
         <div className="grid grid-cols-2 gap-4">
-            <FormField
+          <FormField
             control={control}
             name="minMembers"
             render={({ field: { value, onChange, ...field } }) => (
               <FormItem>
                 <FormLabel className="text-gray-900">Minimum Members</FormLabel>
-              <FormControl>
-                <Input
-                type="number"
-                value={value || ""}
-                onChange={(e) => onChange(e.target.value || "")}
-                {...field}
-                />
-              </FormControl>
+                <FormControl>
+                  <Input
+                    type="number"
+                    value={value || ""}
+                    onChange={(e) => onChange(e.target.value || "")}
+                    {...field}
+                  />
+                </FormControl>
               </FormItem>
             )}
-            />
-            <FormField
+          />
+          <FormField
             control={control}
             name="maxMembers"
             render={({ field: { value, onChange, ...field } }) => (
               <FormItem>
                 <FormLabel className="text-gray-900">Maximum Members</FormLabel>
-              <FormControl>
-                <Input
-                type="number"
-                value={value || ""}
-                onChange={(e) => onChange(e.target.value || "")}
-                {...field}
-                />
-              </FormControl>
+                <FormControl>
+                  <Input
+                    type="number"
+                    value={value || ""}
+                    onChange={(e) => onChange(e.target.value || "")}
+                    {...field}
+                  />
+                </FormControl>
               </FormItem>
             )}
           />
         </div>
-        </div>
+      </div>
 
-        <div className="pt-4">
+      <div className="pt-4">
         <Button
           type="button"
           onClick={handleNext}
-          className="w-full sm:w-auto bg-[#0A2145] hover:bg-[#0A2145]/90"
+          className="w-full sm:w-auto bg-[#0A2145] hover:bg-[#0A2145]/90 rounded-full group relative overflow-hidden transition-all duration-300 ease-in-out hover:pr-12"
         >
+          <span className="flex items-center justify-center relative gap-3">
           Save and Continue
+          <ArrowRight className="w-5 h-5 absolute -right-6 opacity-0 group-hover:right-[-2rem] group-hover:opacity-100 transition-all duration-300 ease-in-out" />
+          </span>
         </Button>
       </div>
     </div>
   );
 }
+
+{/* <Button
+          type="submit"
+          className="w-full sm:w-auto bg-[#0A2145] hover:bg-[#0A2145]/90 rounded-full group relative overflow-hidden transition-all duration-300 ease-in-out hover:pr-12"
+        >
+          <span className="flex items-center justify-center relative gap-3">
+          Submit
+          <ArrowRight className="w-5 h-5 absolute -right-6 opacity-0 group-hover:right-[-2rem] group-hover:opacity-100 transition-all duration-300 ease-in-out" />
+          </span>
+        </Button> */}

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ActivityFormValues } from "@/lib/types";
 import ReactCountryFlag from "react-country-flag";
 import { useRouter } from "next/navigation";
+import { ArrowRight } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -34,13 +35,16 @@ interface LocationDetailsFormProps {
 
 export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetailsFormProps) {
   const states = [
-
-    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
-    "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
-    "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-    "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
-    "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
+    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", 
+    "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", 
+    "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", 
+    "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", 
+    "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", 
+    "Uttar Pradesh", "Uttarakhand", "West Bengal", 
+    "Andaman and Nicobar Islands", "Chandigarh", "Dadra and Nagar Haveli and Daman and Diu", 
+    "Delhi", "Jammu and Kashmir", "Ladakh", "Lakshadweep", "Puducherry"
   ];
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -122,16 +126,16 @@ export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetai
                 <FormLabel className="text-black">State<RequiredIndicator /></FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select state" />
-                    </SelectTrigger>
+                    <SelectTrigger className="h-10 rounded-full">
+                    <SelectValue className="text-gray-400" placeholder="Your State" />
+                  </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    {states.map((state) => (
-                      <SelectItem key={state} value={state}>
-                        {state}
-                      </SelectItem>
-                    ))}
+                  <SelectContent className="rounded-2xl">
+                  {states.map((state) => (
+                    <SelectItem key={state} value={state}>
+                    {state}
+                    </SelectItem>
+                  ))}
                   </SelectContent>
                 </Select>
               </FormItem>
@@ -164,7 +168,7 @@ export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetai
                 <SelectTrigger className="absolute left-0 w-[4rem] h-10 rounded-r-none rounded-l-full border-r border-gray-200 focus:ring-0 focus:ring-offset-0">
                 <SelectValue>
                   <div className="flex items-center justify-center">
-                  <div className="w-6 h-6 rounded-full bg-gray-50 flex items-center justify-center overflow-hidden">
+                  <div className="w-6 h-6 rounded-full bg-gray-50 flex flex-row items-center justify-center overflow-hidden">
                     <ReactCountryFlag
                     countryCode={countryCodes.find(c => c.code === field.value?.split(' ')[0])?.isoCode || 'US'}
                     svg
@@ -184,18 +188,20 @@ export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetai
                   key={country.code} 
                   value={country.code}
                   className="flex items-center gap-2"
-                >
+                > 
+                  <div className="flex items-center">
                   <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center overflow-hidden">
                   <ReactCountryFlag
                     countryCode={country.isoCode}
                     svg
                     style={{
-                    width: '4em',
-                    height: '4em',
+                    width: '1.5em', 
+                    height: '1.5em',
                     }}
                   />
                   </div>
                   <span>{country.code}</span>
+                  </div>
                 </SelectItem>
                 ))}
               </SelectContent>
@@ -204,7 +210,7 @@ export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetai
               <Input 
                 {...field}
                 className="h-10 pl-[4.5rem]"
-                placeholder="Enter phone number"
+                placeholder="Contact Number *"
                 onChange={(e) => {
                 const code = field.value?.split(' ')[0] || '+1';
                 field.onChange(`${code} ${e.target.value}`);
@@ -241,15 +247,18 @@ export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetai
           type="button"
           variant="outline"
             onClick={() => onBack()}
-          className="w-full sm:w-auto border-[#0A2145] text-[#0A2145] hover:bg-[#0A2145] hover:text-white"
+          className="w-full sm:w-auto  text-[#0A2145] hover:bg-[#0A2145] hover:text-white rounded-full"
         >
           Previous
         </Button>
         <Button
           type="submit"
-          className="w-full sm:w-auto bg-[#0A2145] hover:bg-[#0A2145]/90"
+          className="w-full sm:w-auto bg-[#0A2145] hover:bg-[#0A2145]/90 rounded-full group relative overflow-hidden transition-all duration-300 ease-in-out hover:pr-12"
         >
+          <span className="flex items-center justify-center relative gap-3">
           Submit
+          <ArrowRight className="w-5 h-5 absolute -right-6 opacity-0 group-hover:right-[-2rem] group-hover:opacity-100 transition-all duration-300 ease-in-out" />
+          </span>
         </Button>
         </div>
         </form>
