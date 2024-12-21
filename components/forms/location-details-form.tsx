@@ -8,6 +8,7 @@ import { ActivityFormValues } from "@/lib/types";
 import ReactCountryFlag from "react-country-flag";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from 'lucide-react';
+import { toast } from "sonner";
 import {
   Select,
   SelectContent,
@@ -48,10 +49,37 @@ export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetai
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    const values = control._formValues;
+    const requiredFields = {
+      addressLine1: 'Address Line 1',
+      zipCode: 'ZIP Code',
+      city: 'City',
+      state: 'State',
+      contactPhone: 'Contact Number',
+      contactName: 'Contact Name'
+    };
+
+    const missingFields = Object.entries(requiredFields)
+      .filter(([key]) => !values[key])
+      .map(([_, label]) => label);
+
+    if (missingFields.length > 0) {
+      toast.error("Please fill in all required fields", {
+        description: `Missing: ${missingFields.join(', ')}`,
+        duration: 3000,
+      });
+      return;
+    }
+
     try {
       await onSubmit();
     } catch (error) {
       console.error('Form submission failed:', error);
+      toast.error("Form submission failed", {
+        description: "Please try again",
+        duration: 3000,
+      });
     }
   };
 
@@ -120,29 +148,29 @@ export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetai
             )}
           />
 
-          <FormField
+            <FormField
             control={control}
             name="state"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-black">State<RequiredIndicator /></FormLabel>
+              <FormLabel className="text-black">State<RequiredIndicator /></FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger className="h-10 rounded-full focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0">
-                    <SelectValue className="text-gray-400" placeholder="Your State" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="rounded-2xl">
-                  {states.map((state) => (
-                    <SelectItem key={state} value={state}>
-                    {state}
-                    </SelectItem>
-                  ))}
-                  </SelectContent>
-                </Select>
+                <FormControl>
+                <SelectTrigger className="h-11 rounded-full focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none">
+                  <SelectValue placeholder="Select state" className="text-muted-foreground" />
+                </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                {states.map((state) => (
+                  <SelectItem key={state} value={state}>
+                  {state}
+                  </SelectItem>
+                ))}
+                </SelectContent>
+              </Select>
               </FormItem>
             )}
-          />
+            />
 
         </div>
 
@@ -170,13 +198,15 @@ export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetai
                 <SelectTrigger className="absolute left-0 w-[4rem] h-10 rounded-r-none rounded-l-full border-r border-gray-200 focus:ring-0 focus:ring-offset-0">
                 <SelectValue>
                   <div className="flex items-center justify-center">
-                  <div className="w-6 h-6 rounded-full bg-gray-50 flex flex-row items-center justify-center overflow-hidden">
+                  <div className="w-[22px] h-[22px] rounded-full bg-gray-50 flex flex-row items-center justify-center overflow-hidden">
                     <ReactCountryFlag
                     countryCode={countryCodes.find(c => c.code === field.value?.split(' ')[0])?.isoCode || 'US'}
                     svg
                     style={{
-                      width: '6rem',
-                      height: '6rem',
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'center',
                     }}
                     />
                   </div>
@@ -197,8 +227,10 @@ export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetai
                     countryCode={country.isoCode}
                     svg
                     style={{
-                    width: '1.5em', 
-                    height: '1.5em',
+                      width: '150%',
+                      height: '150%',
+                      objectFit: 'cover',
+                      objectPosition: 'center',
                     }}
                   />
                   </div>
