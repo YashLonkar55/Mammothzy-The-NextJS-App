@@ -1,14 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Facebook, Instagram, Linkedin, Mail } from "lucide-react";
+import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
+import {FiMail} from "react-icons/fi"
 
 const Footer: React.FC = () => {
   const socialLinks = [
-    { href: '#', icon: Facebook, label: 'Facebook' },
-    { href: '#', icon: Instagram, label: 'Instagram' },
-    { href: '#', icon: Linkedin, label: 'LinkedIn' },
-    { href: '#', icon: Mail, label: 'Email' },
+    { href: '#', icon: FaFacebook, label: 'Facebook' },
+    { href: '#', icon: FaInstagram, label: 'Instagram' },
+    { href: '#', icon: FaLinkedin, label: 'LinkedIn' },
+    { href: '#', icon: FiMail, label: 'Email' },
   ];
 
   return (
@@ -21,7 +22,7 @@ const Footer: React.FC = () => {
           width={180}
           height={75}
         />
-        <p className="text-gray-600 text-center max-w-md">
+        <p className="text-gray-600 text-center whitespace-nowrap overflow-hidden text-ellipsis max-w-[600px]">
           Marketplace for searching, filtering and instantly booking team activities
         </p>
       </div>
@@ -40,9 +41,11 @@ const Footer: React.FC = () => {
             </Link>
           );
         })}
-      </div>
-      
-      <p className="text-gray-600 text-sm">
+        </div>
+        
+        <div className="w-full max-w-full border-t border-gray-200"></div>
+        
+        <p className="text-gray-600 text-sm">
         Copyright © {new Date().getFullYear()}
       </p>
     </footer>

@@ -60,9 +60,11 @@ export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetai
       <form onSubmit={handleSubmit} className="space-y-6">
 
         <div>
-        <h2 className="text-xl font-semibold mb-2">Location Details</h2>
-        <p className="text-sm text-muted-foreground">Please specify the address for where the activity takes place</p>
-      </div>
+          <h2 className="text-xl font-semibold mb-2">Location Details</h2>
+          <p className="text-sm text-muted-foreground whitespace-nowrap w-full overflow-hidden text-ellipsis">
+          Please specify the address for where the activity takes place
+          </p>
+        </div>
 
       <div className="space-y-2">
         <FormField
@@ -126,9 +128,9 @@ export function LocationDetailsForm({ control, onSubmit, onBack }: LocationDetai
                 <FormLabel className="text-black">State<RequiredIndicator /></FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger className="h-10 rounded-full">
+                    <SelectTrigger className="h-10 rounded-full focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0">
                     <SelectValue className="text-gray-400" placeholder="Your State" />
-                  </SelectTrigger>
+                    </SelectTrigger>
                   </FormControl>
                   <SelectContent className="rounded-2xl">
                   {states.map((state) => (
